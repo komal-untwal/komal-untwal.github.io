@@ -1,97 +1,966 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Komal Untwal | Portfolio</title>
-  <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: #f9fafc; color: #333; }
-    header { background: linear-gradient(90deg, #3f87a6, #ebf8e1, #f69d3c); padding: 2rem; text-align: center; color: white; }
-    header h1 { margin: 0; font-size: 2.5rem; }
-    nav { display: flex; justify-content: center; background: #222; }
-    nav a { color: #fff; padding: 1rem; text-decoration: none; transition: background 0.3s; }
-    nav a:hover { background: #444; }
-    section { padding: 3rem 2rem; max-width: 900px; margin: auto; }
-    section h2 { font-size: 2rem; margin-bottom: 1rem; color: #3f87a6; }
-    .card { background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 2rem; }
-    footer { text-align: center; padding: 2rem; background: #222; color: #eee; margin-top: 2rem; }
-    .skills-list { display: flex; flex-wrap: wrap; gap: 1rem; }
-    .skills-list span { background: #3f87a6; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; }
-    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .projects .card h3 { margin-top: 0; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komal Untwal - Software Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: #667eea;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero .description {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Section */
+        .about {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: white;
+            margin: 0 auto;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Experience Section */
+        .experience {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .experience-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 50%;
+            padding: 0 2rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            border: 4px solid #667eea;
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -12px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -12px;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #f093fb;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            font-weight: 600;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        /* Skills Section */
+        .skills {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: scale(1.1);
+        }
+
+        /* Projects Section */
+        .projects {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .contact-info {
+            font-size: 1.1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            font-family: inherit;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            line-height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero .subtitle { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                text-align: left !important;
+                padding-left: 3rem;
+            }
+            
+            .timeline-item::before {
+                left: 10px !important;
+            }
+            
+            .experience-timeline::before {
+                left: 20px;
+            }
+            
+            nav .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 1rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Komal Untwal</h1>
-    <p>Software Developer | Data & AI Enthusiast | Exploring Quant & Generative AI in Finance</p>
-  </header>
+    <div class="animated-bg"></div>
+    
+    <nav id="navbar">
+        <div class="container">
+            <div class="logo">KU</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#blog">Blog</a>
-    <a href="#contact">Contact</a>
-  </nav>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Komal Untwal</h1>
+            <p class="subtitle">Software Developer & Data Enthusiast</p>
+            <p class="description">Building high-performance trading systems and scalable solutions at Barclays Investment Bank. Passionate about fintech, AI, and creating impactful software that drives business success.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Let's Connect</a>
+                <a href="#experience" class="btn btn-secondary">View My Work</a>
+            </div>
+        </div>
+    </section>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <div class="card">
-      <p>I am a software developer with a strong background in backend development within financial systems. 
-      Beyond my professional role, I am deeply enthusiastic about Artificial Intelligence, Machine Learning, and Quantitative Finance. 
-      I am actively learning and exploring how Generative AI and ML are shaping the future of finance, and documenting my journey along the way.</p>
-    </div>
-  </section>
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title fade-in">About Me</h2>
+            <div class="about-content fade-in">
+                <div class="about-image">
+                    <div class="profile-pic">KU</div>
+                </div>
+                <div class="about-text">
+                    <p>I'm a Computer Scientist with 5+ years of working experience, currently serving as a Software Developer in the credit e-trading domain at Barclays Investment Bank. I specialize in developing high-performance, low-latency trading systems and scalable microservices architecture.</p>
+                    <p>I consider myself a data enthusiast, constantly honing my data skills through participation in research initiatives and study groups. My expertise spans across Java, Python, machine learning, and distributed systems, with a particular focus on financial technology and quantitative development.</p>
+                    <p>I hold a Master's in Computer Science from NJIT (GPA: 3.89) and have published research on COVID-19 health communication. Recently, my team TradeSmith secured 3rd place at the Barclays GenAI Hackathon, showcasing our innovation in AI-driven trading solutions.</p>
+                    <p>Based in the New York City Metropolitan Area, I'm passionate about building systems that make a real impact in financial markets and exploring the cutting-edge intersection of AI and finance.</p>
+                </div>
+            </div>
+            <div class="stats fade-in">
+                <div class="stat-item">
+                    <div class="stat-number">5+</div>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3.89</div>
+                    <p>Master's GPA</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">40%</div>
+                    <p>QA Improvement</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5x</div>
+                    <p>Deployment Speed Up</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="card skills-list">
-      <span>Java</span><span>Python</span><span>SQL</span><span>Spring Boot</span>
-      <span>Docker</span><span>Kubernetes</span><span>Kafka</span>
-      <span>Machine Learning</span><span>Generative AI</span><span>Quantitative Finance</span>
-      <span>Data Analysis (Pandas, NumPy)</span>
-    </div>
-  </section>
+    <section id="experience" class="section experience">
+        <div class="container">
+            <h2 class="section-title fade-in">Professional Experience</h2>
+            <div class="experience-timeline fade-in">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Oct 2022 - Present</div>
+                        <div class="timeline-title">Software Developer</div>
+                        <div class="timeline-company">Barclays Corporate & Investment Bank, New York, NY</div>
+                        <p><strong>E-Trading Credit Connectivity [Pre-Trade Markets]</strong></p>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>Developed and maintained high-performance, multi-threaded, low-latency JAVA applications for RFQ processing and trading infrastructure</li>
+                            <li>Optimized market data streaming, risk-aware pricing models, and FIX protocol connectivity with major exchanges like Bloomberg, MarketAxess, SIX Swiss Exchange, & Tradeweb</li>
+                            <li>Collaborated with traders and quant teams to design systems supporting manual and algorithmic trading strategies</li>
+                            <li>Enhanced DevOps pipeline for CI/CD using TeamCity, achieving 5x improvement in deployment speed</li>
+                            <li>Designed automation testing frameworks, reducing manual QA efforts by 40%</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Jun 2022 - Aug 2022</div>
+                        <div class="timeline-title">Software Engineer Intern</div>
+                        <div class="timeline-company">Octane, New York, NY</div>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>Developed Python-based API using Django REST Framework with fuzzy matching logic for enhanced database search functionality</li>
+                            <li>Created independent microservice to query database based on search filters</li>
+                            <li>Gained proficiency in PostgreSQL, Docker, Jenkins, microservice architecture, and JIRA for project management</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Nov 2021 - May 2022</div>
+                        <div class="timeline-title">Graduate Research Assistant</div>
+                        <div class="timeline-company">New Jersey Institute of Technology</div>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>Developed substantial quantitative research skills through multiple research projects involving ML algorithms and data mining</li>
+                            <li>Scraped social media disinformation using Twitter API to assess COVID-19 misinformation impact on infection prevalence</li>
+                            <li>Prepared and structured datasets including documenting, labeling, and cleansing processes</li>
+                            <li>Created concise, instructive graphs and figures from summarized data sources</li>
+                            <li>Contributed to strategic planning, deadlines, proposal reports, and research literature study</li>
+                            <li>Developed automation software for data collection, maintenance, and visualization across university applications</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Sep 2021 - Nov 2021</div>
+                        <div class="timeline-title">Academic Operations Assistant</div>
+                        <div class="timeline-company">New Jersey Institute of Technology</div>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>Assisted with academic operations related to workflow automation and data visualization</li>
+                            <li>Created automated email generation system, increasing productivity of manual operations</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Jun 2018 - Nov 2020</div>
+                        <div class="timeline-title">Associate Consultant (Quality Assurance Engineer)</div>
+                        <div class="timeline-company">Atos Syntel, Pune, India</div>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>Responsible for preparing test plans, prioritizing testing activities, and test case execution</li>
+                            <li>Performed regression testing and maintained automated test suites for web-based & desktop applications</li>
+                            <li>Gained hands-on experience with testing tools: Selenium, UFT & TestComplete</li>
+                            <li>Used frameworks: TestNG, Maven with Java and Python</li>
+                            <li>Eliminated 80% of manual checks by developing automated script suite for data entry application maintenance</li>
+                            <li>Adopted Agile and Scrum methodologies to accomplish project milestones</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Aug 2017 - Jan 2018</div>
+                        <div class="timeline-title">Java Application Developer (Internship)</div>
+                        <div class="timeline-company">Creazione Software, Pune, Maharashtra, India</div>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>Extensively trained in core JAVA concepts & advanced topics: JSP, Servlet, JDBC, Spring framework</li>
+                            <li>Developed virtual gym management system using Maven, Java, HTML, CSS, JavaScript, jQuery, RESTful APIs</li>
+                            <li>Handled software analysis, programming, testing, debugging, and requirements conversion to specifications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="card">
-        <h3>RFQGen Hackathon Project</h3>
-        <p>Built a prototype that extracts trade RFQs directly from chat messages using Microsoft Azure AI, Power Automate, and Copilot Studio. Automated trade ticket creation and suggestion flow.</p>
-      </div>
-      <div class="card">
-        <h3>AI in Finance Blog</h3>
-        <p>Currently writing articles exploring how AI and Generative AI are transforming financial markets—covering case studies, tools, and future opportunities.</p>
-      </div>
-      <div class="card">
-        <h3>Low-Latency Systems (Learning Project)</h3>
-        <p>Experimenting with in-memory databases, concurrency, and network optimization to build a mock market data feed system simulating real-time financial trading infrastructure.</p>
-      </div>
-    </div>
-  </section>
+    <section id="skills" class="section skills">
+        <div class="container">
+            <h2 class="section-title fade-in">Technical Skills</h2>
+            <div class="skills-grid fade-in">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">R</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">JavaScript</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Web Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Spring Framework</span>
+                        <span class="skill-tag">Django</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">Bootstrap</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Databases & Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">TimesTen</span>
+                        <span class="skill-tag">Oracle</span>
+                        <span class="skill-tag">KDB</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Kafka</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>DevOps & Utilities</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Jenkins</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Maven/Gradle</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">JIRA</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Trading & Finance</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">FIX Protocol</span>
+                        <span class="skill-tag">Fixed Income Trading</span>
+                        <span class="skill-tag">Market Data Streaming</span>
+                        <span class="skill-tag">Risk Management</span>
+                        <span class="skill-tag">Algorithmic Trading</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Data Science & ML</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">NLTK</span>
+                        <span class="skill-tag">Tableau</span>
+                        <span class="skill-tag">Matplotlib</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="blog">
-    <h2>Blog / Learning Journey</h2>
-    <div class="card">
-      <p>I regularly share insights and learning notes on AI, Machine Learning, and Quantitative Finance. 
-      Topics include Generative AI in Finance, recent research, and case studies on real-world adoption of AI in trading and risk management.</p>
-    </div>
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="card">
-      <p>Email: <a href="mailto:komal.untwal@gmail.com">komal.untwal@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://linkedin.com/in/komal-untwal" target="_blank">linkedin.com/in/komal-untwal</a></p>
-      <p>GitHub: <a href="https://github.com/komal-untwal" target="_blank">github.com/komal-untwal</a></p>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Komal Untwal | Built with ❤️ to showcase my journey in Software, AI & Quant</p>
-  </footer>
-</body>
-</html>
+    <section id="projects" class="section projects">
+        <div class="container">
+            <h2 class="section-title fade-in">Featured Projects</h2>
+            <div class="projects-grid fade-in">
+                <div class="project-card">
+                    <h3 class="project-title">Agent Checklist (Cornell Tech)</h3>
+                    <p class="project-description"><strong>Aug 2022 - Present</strong><br>
+                    Problem: Call center agents spend 82% of their time looking at customer data. Developed an AI-powered checklist solution to streamline agent workflows and reduce lookup time, significantly improving operational efficiency in customer service operations.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag">AI</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Tesla Stock Price Analysis Dashboard</h3>
+                    <p class="project-description"><strong>Mar 2022</strong><br>
+                    Created comprehensive dashboard to track daily live stock price changes, average monthly stock prices, daily closing numbers, and volume of stock traded. Built interactive visualizations to study Tesla's market performance and trading patterns.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Tableau</span>
+                        <span class="tech-tag">Google Sheets</span>
+                        <span class="tech-tag">Data Visualization</span>
+                        <span class="tech-tag">Financial Analysis</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Blog App with Flask</h3>
+                    <p class="project-description">Built a full-featured web application using Python Flask framework with modern web technologies. Implemented containerization with Docker and deployed using CI/CD configuration with GitHub Actions and Heroku deployment.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">GitHub Actions</span>
+                        <span class="tech-tag">Heroku</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Kleinberg's HITS & PageRank Algorithms</h3>
+                    <p class="project-description">Implemented advanced link analysis algorithms used by search engines for ranking web pages against user queries. Built efficient Java implementations of both HITS (Hyperlink-Induced Topic Search) and Google's PageRank algorithms.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Algorithms</span>
+                        <span class="tech-tag">Graph Theory</span>
+                        <span class="tech-tag">Web Search</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Sentiment Analysis Using NLP</h3>
+                    <p class="project-description">Developed a real-time sentiment analysis model specifically for financial market data. Applied Natural Language Processing and machine learning techniques to analyze market sentiment and identify risk signals for trading decisions.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Financial Data</span>
+                        <span class="tech-tag">Real-time Processing</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">COVID-19 Misinformation Impact Study</h3>
+                    <p class="project-description"><strong>Published Research</strong><br>
+                    Built Python scripts using Twitter API to extract and analyze data for studying misinformation's impact on COVID-19 prevalence. Visualized insights using Excel and Tableau. Research published in INQUIRY: The Journal of Health Care Organization.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Twitter API</span>
+                        <span class="tech-tag">Data Mining</span>
+                        <span class="tech-tag">Excel</span>
+                        <span class="tech-tag">Tableau</span>
+                        <span class="tech-tag">Research</span>
+                    </div>
+                </div>
